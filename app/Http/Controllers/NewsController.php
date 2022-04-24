@@ -41,7 +41,7 @@ class NewsController extends Controller
 
         NewsCreated::dispatch($news);
 
-        return $this->jsonResponse(HTTP_CREATED, "News Created Successfully");
+        return $this->jsonResponse(HTTP_CREATED, "News Created Successfully", $news);
     }
 
     /**
