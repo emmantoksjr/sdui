@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewsCreated;
 use App\Models\News;
 use App\Http\Requests\News\StoreNewsRequest;
 use App\Http\Requests\News\UpdateNewsRequest;
@@ -36,7 +37,9 @@ class NewsController extends Controller
      */
     public function create(StoreNewsRequest $request)
     {
-        $this->newsRepository->createNews($request->validated());
+        $news = $this->newsRepository->createNews($request->validated());
+
+        NewsCreated::dispatch($news);
 
         return $this->jsonResponse(HTTP_CREATED, "News Created Successfully");
     }
